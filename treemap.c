@@ -88,11 +88,17 @@ TreeNode * minimum(TreeNode * x){
 
 void removeNode(TreeMap * tree, TreeNode* node) 
 {
-    if (node == NULL) return;
-    TreeNode * parent = node->parent;
-    if (node->left == NULL && node->right == NULL)
+    if (node == NULL) return; //Si el nodo es nulo retorna
+    if(node->parent == NULL)
     {
-        if (parent == NULL) tree->root = NULL;
+        tree->root = NULL;
+        return;
+    }
+    
+    TreeNode * parent = node->parent; //Creamos un nodo auxiliar para guardar el padre del nodo a eliminar
+    if (node->left == NULL && node->right == NULL) //Si el nodo a eliminar no tiene hijos
+    {
+        if (parent == NULL) tree->root = NULL; //
         else
         {
             if (parent->left == node) parent->left = NULL;
