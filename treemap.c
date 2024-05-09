@@ -99,28 +99,24 @@ void removeNode(TreeMap * tree, TreeNode* node)
             else parent->right = NULL;
         }
     }
+    else if (node->left != NULL && node->right != NULL)
+    {
+        TreeNode * minimumNode = minimum(node->right);
+        node->pair = minimumNode->pair;
+        removeNode(tree, minimumNode);
+    }
     else
     {
-        if (node->left != NULL && node->right != NULL)
-        {
-            TreeNode * minimumNode = minimum(node->right);
-            node->pair = minimumNode->pair;
-            removeNode(tree, minimumNode);
-        }
+        TreeNode * child = (node->left != NULL) ? node->left : node->right;
+        if (parent == NULL) tree->root = child;
         else
         {
-            TreeNode * child = (node->left != NULL)? node->left: node->right;
-            if (parent == NULL) tree->root = child;
-            else
-            {
-                if (parent->left == node) parent->left = child;
-                else parent->right = child;
-                child->parent = parent;
-            }
-            
+            if (parent->left == node) parent->left = child;
+            else parent->right = child;
+            if (child != NULL) child->parent = parent;
         }
-        
     }
+
     free(node);
     tree->current = parent;
 }
