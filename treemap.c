@@ -105,20 +105,9 @@ void removeNode(TreeMap * tree, TreeNode* node)
     }
     else if (node->left != NULL && node->right != NULL) //Si el nodo a eliminar tiene dos hijos
     {
-    TreeNode * minimumNode = minimum(node->right); // Buscamos el nodo más pequeño en el subárbol derecho
-    node->key = minimumNode->key; // Copiamos solo la clave del nodo más pequeño al nodo a eliminar
-    node->value = minimumNode->value; // Copiamos el valor asociado
-    // Podrías copiar otros datos relevantes aquí
-    
-    if (minimumNode->parent->left == minimumNode)
-        minimumNode->parent->left = minimumNode->right; // Reemplazamos el nodo mínimo con su hijo derecho, si existe
-    else
-        minimumNode->parent->right = minimumNode->right;
-    
-    if (minimumNode->right != NULL)
-        minimumNode->right->parent = minimumNode->parent;
-    
-    free(minimumNode);
+        TreeNode * minimumNode = minimum(node->right); //Buscamos el nodo más pequeño en el subárbol derecho
+        node->pair = minimumNode->pair; //Copiamos los datos del nodo más pequeño al nodo a eliminar
+        removeNode(tree, minimumNode);
     }
     else //Si el nodo a eliminar tiene un hijo
     {
