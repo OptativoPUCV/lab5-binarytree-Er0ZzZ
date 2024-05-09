@@ -116,18 +116,11 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
     while (tree->current != NULL)
         {
             if (is_equal(tree,key,tree->current->pair->key))
-            {
                 return tree->current->pair;
-            }
             if (tree->lower_than(key,tree->current->pair->key))
-            {
                 tree->current = tree->current->left;
-            }
             else
-            {
                 tree->current = tree->current->right;
-            }
-            
         }
     return NULL;
 }
