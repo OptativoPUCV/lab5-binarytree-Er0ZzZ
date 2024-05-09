@@ -98,32 +98,24 @@ void removeNode(TreeMap * tree, TreeNode* node)
     TreeNode * parent = node->parent; //Creamos un nodo auxiliar para guardar el padre del nodo a eliminar
     if (node->left == NULL && node->right == NULL) //Si el nodo a eliminar no tiene hijos
     {
-        if (parent == NULL) tree->root = NULL; //
-        else
-        {
-            if (parent->left == node) parent->left = NULL;
-            else parent->right = NULL;
-        }
+            if (parent->left == node) //Si el nodo a eliminar es el hijo izquierdo del padre
+                parent->left = NULL; 
+            else  //Si el nodo a eliminar es el hijo derecho del padre
+                parent->right = NULL;
     }
-    else if (node->left != NULL && node->right != NULL)
+    else if (node->left != NULL && node->right != NULL) //Si el nodo a eliminar tiene dos hijos
     {
-        TreeNode * minimumNode = minimum(node->right);
-        node->pair = minimumNode->pair;
-        removeNode(tree, minimumNode);
+        TreeNode * minimumNode = minimum(node->right); //Buscamos el nodo más pequeño en el subárbol derecho
+        node->pair = minimumNode->pair; //Copiamos los datos del nodo más pequeño al nodo a eliminar
+        removeNode(tree, minimumNode); //Eliminamos el nodo más pequeño del subárbol derecho
     }
-    else
+    else //Si el nodo a eliminar tiene un hijo
     {
-        TreeNode * child = (node->left != NULL) ? node->left : node->right;
-        if (parent == NULL) tree->root = child;
-        else
-        {
-            if (parent->left == node) parent->left = child;
-            else parent->right = child;
-            if (child != NULL) child->parent = parent;
-        }
+        TreeNode * child = (node->left != NULL) ? node->left : node->right; //Creamos un nodo auxiliar para guardar el hijo del nodo a eliminar
+        if (parent->left == node) parent->left = child; //Si el nodo a eliminar es el hijo izquierdo del padre, lo reemplazamos por el hijo
+        else parent->right = child; //Si el nodo a eliminar es el hijo derecho del padre, lo reemplazamos por el hijo
+        if (child != NULL) child->parent = parent; //Si el hijo no es nulo, actualizamos su padre
     }
-
-    free(node);
     tree->current = parent;
 }
 
