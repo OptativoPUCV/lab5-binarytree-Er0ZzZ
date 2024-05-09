@@ -94,3 +94,14 @@ Thu 09 May 2024 09:52:56 PM UTC:
  tests:  21|2
 total_score: 40/70
 6acd314
+Thu 09 May 2024 09:56:17 PM UTC: 
+ treemap.c | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
+In file included from test.c:4:
+treemap.c: In function ‘removeNode’:
+treemap.c:113:24: error: unused variable ‘grandparent’ [-Werror=unused-variable]
+  113 |             TreeNode * grandparent = node->parent;
+      |                        ^~~~~~~~~~~
+cc1: all warnings being treated as errors
+Compilation failed
+83f0fe6
