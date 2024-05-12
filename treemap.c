@@ -88,35 +88,78 @@ TreeNode * minimum(TreeNode * x){
 
 void removeNode(TreeMap * tree, TreeNode* node) 
 {
-    if (node == NULL) return; //Si el nodo es nulo retorna
-    if(node->parent == NULL)
+    if (node == NULL) return; // If the node is NULL, return
+    TreeNode * parent = node->parent; // Create a temporary node to store the parent of the node to be removed
+
+    if (node->left == NULL && node->right == NULL) // If the node to be removed has no children
     {
-        tree->root = NULL;
-        return;
-    }
-    TreeNode * parent = node->parent; //Creamos un nodo auxiliar para guardar el padre del nodo a eliminar
-    if (node->left == NULL && node->right == NULL) //Si el nodo a eliminar no tiene hijos
-    {
-            if (parent->left == node) //Si el nodo a eliminar es el hijo izquierdo del padre
+        if (parent == NULL) // If the node has no parent, set the root to NULL
+            tree->root = NULL;
+        else
+        {
+            if (parent->left == node) // If the node to be removed is the left child of the parent
                 parent->left = NULL; 
-            else  //Si el nodo a eliminar es el hijo derecho del padre
+            else // If the node to be removed is the right child of the parent
                 parent->right = NULL;
+        }
     }
-    else if (node->left != NULL && node->right != NULL) //Si el nodo a eliminar tiene dos hijos
+    else if (node->left != NULL && node->right != NULL) // If the node to be removed has two children
     {
-        TreeNode * aux = node->right; //Buscamos el nodo más pequeño en el subárbol derecho
-        aux = minimum(aux);
-        node->pair->key = aux->pair->key;
-        node->pair->value = aux->pair->value;
-        removeNode(tree, aux);
+        TreeNode * minimumNode = minimum(node->right); // Find the minimum node in the right subtree
+        node->pair = minimumNode->pair; // Swap node's pair with the minimum node's pair
+        removeNode(tree, minimumNode); // Recursively remove the minimum node
     }
-    else //Si el nodo a eliminar tiene un hijo
+    else // If the node to be removed has one child
     {
-        TreeNode * child = (node->left != NULL) ? node->left : node->right; //Creamos un nodo auxiliar para guardar el hijo del nodo a eliminar
-        if (parent->left == node) parent->left = child; //Si el nodo a eliminar es el hijo izquierdo del padre, lo reemplazamos por el hijo
-        else parent->right = child; //Si el nodo a eliminar es el hijo derecho del padre, lo reemplazamos por el hijo
-        if (child != NULL) child->parent = parent; //Si el hijo no es nulo, actualizamos su padre
+        TreeNode * child = (node->left != NULL) ? node->left : node->right; // Create a temporary node to store the child of the node to be removed
+
+        if (parent == NULL) // If the node has no parent, set the root to the child node
+            tree->root = child;
+        else
+        {
+            if (parent->left == node) // If the node to be removed is the left child of the parent, replace it with the child
+                parent->left = child;
+            else // If the node to be removed is the right child of the parent, replace it with the child
+                parent->right = child;
+            if (child != NULL) // If the child is not NULL, update its parent
+                child->parent = parent;
+        }
     }
+
+    free(node); // Free the memory of the removed node
+    tree->current = parent; // Update the current node to the parent
+}
+``` // If the node to be removed is the left child of the parent
+                parent->left = NULL; 
+            else // If the node to be removed is the right child of the parent
+                parent->right = NULL;
+        }
+    }
+    else if (node->left != NULL && node->right != NULL) // If the node to be removed has two children
+    {
+        TreeNode * minimumNode = minimum(node->right); // Find the minimum node in the right subtree
+        node->pair = minimumNode->pair; // Swap node's pair with the minimum node's pair
+        removeNode(tree, minimumNode); // Recursively remove the minimum node
+    }
+    else // If the node to be removed has one child
+    {
+        TreeNode * child = (node->left != NULL) ? node->left : node->right; // Create a temporary node to store the child of the node to be removed
+
+        if (parent == NULL) // If the node has no parent, set the root to the child node
+            tree->root = child;
+        else
+        {
+            if (parent->left == node) // If the node to be removed is the left child of the parent, replace it with the child
+                parent->left = child;
+            else // If the node to be removed is the right child of the parent, replace it with the child
+                parent->right = child;
+            if (child != NULL) // If the child is not NULL, update its parent
+                child->parent = parent;
+        }
+    }
+
+    free(node); // Free the memory of the removed node
+    tree->current = parent; // Update the current node to the parent
 }
 
 void eraseTreeMap(TreeMap * tree, void* key){

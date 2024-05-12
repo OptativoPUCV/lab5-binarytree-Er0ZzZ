@@ -192,3 +192,54 @@ Sun 12 May 2024 03:07:49 AM UTC:
  1 file changed, 2 deletions(-)
  tests:  0|0
 e1ca742
+Sun 12 May 2024 03:14:29 AM UTC: 
+ treemap.c | 79 ++++++++++++++++++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 61 insertions(+), 18 deletions(-)
+In file included from test.c:4:
+treemap.c:132:1: error: stray ‘`’ in program
+  132 | ``` // If the node to be removed is the left child of the parent
+      | ^
+treemap.c:132:2: error: stray ‘`’ in program
+  132 | ``` // If the node to be removed is the left child of the parent
+      |  ^
+treemap.c:132:3: error: stray ‘`’ in program
+  132 | ``` // If the node to be removed is the left child of the parent
+      |   ^
+treemap.c:133:23: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+  133 |                 parent->left = NULL;
+      |                       ^~
+treemap.c:134:13: error: expected identifier or ‘(’ before ‘else’
+  134 |             else // If the node to be removed is the right child of the parent
+      |             ^~~~
+treemap.c:136:9: error: expected identifier or ‘(’ before ‘}’ token
+  136 |         }
+      |         ^
+treemap.c:137:5: error: expected identifier or ‘(’ before ‘}’ token
+  137 |     }
+      |     ^
+treemap.c:138:5: error: expected identifier or ‘(’ before ‘else’
+  138 |     else if (node->left != NULL && node->right != NULL) // If the node to be removed has two children
+      |     ^~~~
+treemap.c:144:5: error: expected identifier or ‘(’ before ‘else’
+  144 |     else // If the node to be removed has one child
+      |     ^~~~
+treemap.c:161:5: error: data definition has no type or storage class [-Werror]
+  161 |     free(node); // Free the memory of the removed node
+      |     ^~~~
+treemap.c:161:5: error: type defaults to ‘int’ in declaration of ‘free’ [-Werror=implicit-int]
+treemap.c:161:5: error: parameter names (without types) in function declaration [-Werror]
+treemap.c:161:5: error: conflicting types for ‘free’; have ‘int()’
+In file included from test.c:2:
+/nix/store/4pqv2mwdn88h7xvsm7a5zplrd8sxzvw0-glibc-2.35-163-dev/include/stdlib.h:555:13: note: previous declaration of ‘free’ with type ‘void(void *)’
+  555 | extern void free (void *__ptr) __THROW;
+      |             ^~~~
+In file included from test.c:4:
+treemap.c:162:9: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+  162 |     tree->current = parent; // Update the current node to the parent
+      |         ^~
+treemap.c:163:1: error: expected identifier or ‘(’ before ‘}’ token
+  163 | }
+      | ^
+cc1: all warnings being treated as errors
+Compilation failed
+39aa826
