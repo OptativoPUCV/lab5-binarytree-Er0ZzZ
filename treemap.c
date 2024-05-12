@@ -92,6 +92,14 @@ void removeNode(TreeMap * tree, TreeNode* node)
     if(node->parent == NULL)
     {
         tree->root = NULL;
+        if(node->left != NULL)
+        {
+            node->left == NULL;
+        }
+        if(node->right != NULL)
+        {
+            node->right == NULL;
+        }
         return;
     }
     TreeNode * parent = node->parent; //Creamos un nodo auxiliar para guardar el padre del nodo a eliminar
@@ -108,7 +116,7 @@ void removeNode(TreeMap * tree, TreeNode* node)
         aux = minimum(aux);
         node->pair->key = aux->pair->key;
         node->pair->value = aux->pair->value;
-        removeNode(tree, aux); // Corrected recursive call
+        removeNode(tree,aux); // Corrected recursive call
     }
     else //Si el nodo a eliminar tiene un hijo
     {
@@ -125,7 +133,6 @@ void eraseTreeMap(TreeMap * tree, void* key){
     if (searchTreeMap(tree, key) == NULL) return;
     TreeNode* node = tree->current;
     removeNode(tree, node);
-
 }
 
 Pair * searchTreeMap(TreeMap * tree, void* key) {
